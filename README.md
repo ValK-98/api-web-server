@@ -96,6 +96,27 @@ ORMs provide a convenient and efficient way to interact with databases, however 
 * Expected response: `200 OK`
 * Authentication: Valid JWT token for user
 
+### /user_smartwatches
+* Description: Allows users to get saves smartwatch information associated with their ID
+* Required data: none
+* HTTP Method: `GET`
+* Expected response: `200 OK`
+* Authentication: Valid JWT token for user
+
+### /user_smartwatches
+* Description: Allows users to add watch to `user_smartwatches`
+* Required data: `smartwatch_id`
+* HTTP Method: `POST`
+* Expected response: `201 CREATED`
+* Authentication: Valid JWT token for user
+
+### /user_smartwatches/`<int:smartwatch_id>`
+* Description: Allows users to delete `user_smartwatches`
+* Required data: 
+* HTTP Method: `DELETE`
+* Expected response: `200 OK`
+* Authentication: Valid JWT token for user
+
 ## Admin Endpoints: ## 
 
 ### /smartwatches
@@ -118,6 +139,21 @@ ORMs provide a convenient and efficient way to interact with databases, however 
 * HTTP Method: `DELETE`
 * Expected response: `200 OK`
 * Authentication: Admin-level JWT token
+
+### /user_smartwatches/users/all
+* Description: Allows admin to get all users `user_smartwatches` information
+* Required data: none
+* HTTP Method: `GET`
+* Expected response: `200 OK`
+* Authentication: Valid JWT token for admin
+
+### /user_smartwatches/users/`<int:user_id>`
+* Description: Allows admin to get specific user `user_smartwatches` information
+* Required data: none
+* HTTP Method: `GET`
+* Expected response: `200 OK`
+* Authentication: Valid JWT token for admin
+
 
 ### /users
 * Description: Allows admins to view a list of all registered users.
