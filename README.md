@@ -79,6 +79,88 @@ ORMs provide a convenient and efficient way to interact with databases, however 
 
 ### **R5 - Document all endpoints for your API**
 
+## User Endpoints: ## 
+
+### /smartwatches
+* Description: Retrieves a list of smartwatch models, optionally based on their specified criteria.
+* Required data: None
+* Optional data: Query parameters for filtering: `budget`, `battery life`, `main feature`, `name`, `brand`, `year released`
+* HTTP Method: `GET`
+* Expected response: `200 OK`
+* Authentication: Valid JWT token for user
+
+### /smartwatches/`<int:model_id>`
+* Description: Gets information of specific model
+* Required data: 'model_id'
+* HTTP Method: `GET`
+* Expected response: `200 OK`
+* Authentication: Valid JWT token for user
+
+## Admin Endpoints: ## 
+
+### /smartwatches
+* Description: Add a new smartwatch model
+* Required data: Smartwatch model details: `budget`, `battery life`, `main feature`, `name`, `brand`, `year released`
+* HTTP Method: `POST`
+* Expected response: `201 CREATED`
+* Authentication: Admin-level JWT token
+
+### /smartwatches/`<int:model_id>`
+* Description: Update information of existing model
+* Required data: `model_id` as parameter and updated details.
+* HTTP Method: `PUT`
+* Expected response: `200 OK`
+* Authentication: Admin-level JWT token
+
+### /smartwatches/`<int:model_id>`
+* Description: Permits admins to remove a smartwatch model from database
+* Required data: `model_id`
+* HTTP Method: `DELETE`
+* Expected response: `200 OK`
+* Authentication: Admin-level JWT token
+
+### /users
+* Description: Allows admins to view a list of all registered users.
+* Required data: None
+* HTTP Method: `GET`
+* Expected response: `200 OK`
+* Authentication: Admin-level JWT token
+
+### /users/`<int:user_id>`
+* Description: Allows admins to look up a user
+* Required data: `user_id`
+* HTTP Method: `GET`
+* Expected response: `200 OK`
+* Authentication: Admin-level JWT token
+
+### /users/`<int:user_id>`
+* Description: Allows admins to delete an existing user
+* Required data: None
+* HTTP Method: `DELETE`
+* Expected response: `200 OK`
+* Authentication: Admin-level JWT token
+
+## Authentication Endpoints: ## 
+
+### /register
+* Description: Allows creation of new account
+* Required data: User credentials: `username`, `password`, `email`
+* HTTP Method: `POST`
+* Expected response: `201 CREATED`
+* Authentication: None
+
+### /login
+* Description: Authenticates user credentials and provides a token for accessing user-specific endpoints.
+* Required data: User credentials: `email`, `password`
+* HTTP Method: `POST`
+* Expected response: `200 OK`
+* Authentication: `email`, `password`
+
+
+
+
+
+
 ### **R6 - An ERD for your app**
 
 ### **R7 - Detail any third party services that your app will use**
