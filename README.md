@@ -97,7 +97,7 @@ ORMs provide a convenient and efficient way to interact with databases, however 
 * Authentication: Valid JWT token for user
 
 ### /user_smartwatches
-* Description: Allows users to get saves smartwatch information associated with their ID
+* Description: Allows users to get saved smartwatch information associated with their ID
 * Required data: none
 * HTTP Method: `GET`
 * Expected response: `200 OK`
@@ -105,14 +105,14 @@ ORMs provide a convenient and efficient way to interact with databases, however 
 
 ### /user_smartwatches
 * Description: Allows users to add watch to `user_smartwatches`
-* Required data: `smartwatch_id`
+* Required data: `model_id`
 * HTTP Method: `POST`
 * Expected response: `201 CREATED`
 * Authentication: Valid JWT token for user
 
 ### /user_smartwatches/`<int:smartwatch_id>`
 * Description: Allows users to delete `user_smartwatches`
-* Required data: 
+* Required data: `smartwatch_id`
 * HTTP Method: `DELETE`
 * Expected response: `200 OK`
 * Authentication: Valid JWT token for user
@@ -145,14 +145,14 @@ ORMs provide a convenient and efficient way to interact with databases, however 
 * Required data: none
 * HTTP Method: `GET`
 * Expected response: `200 OK`
-* Authentication: Valid JWT token for admin
+* Authentication: Admin-level JWT token
 
 ### /user_smartwatches/users/`<int:user_id>`
 * Description: Allows admin to get specific user `user_smartwatches` information
-* Required data: none
+* Required data: `user_id`
 * HTTP Method: `GET`
 * Expected response: `200 OK`
-* Authentication: Valid JWT token for admin
+* Authentication: Admin-level JWT token
 
 
 ### /users
@@ -198,6 +198,8 @@ ORMs provide a convenient and efficient way to interact with databases, however 
 
 
 ### **R6 - An ERD for your app**
+
+![ERD](./docs/ERD.png)
 
 ### **R7 - Detail any third party services that your app will use**
 
