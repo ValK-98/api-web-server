@@ -215,9 +215,28 @@ SQLAlchemy: An SQL toolkit and Object-Relational Mapping (ORM) library for Pytho
 
 ### **R8 - Describe your projects models in terms of the relationships they have with each other**
 
+#### *Users model*: 
+* The Users model contains the information for the users registering & logging in. It has a one to many relationship with user_smartwatches. This allows the user to store multiple smartwatches that the app outputs. HThe user_id will be used as a foreign key inside of user_smartwatches.
+
+#### *Smartwatches model:*
+* The smartwatches model contains the data for the smartwatches inside the database. It has a many to many relationship with user_smartwatches. This lets multiple users to be associated with the smartwatches, and the smartwatches can be associated with multiple users. The foreign key "model_id" is used in user_smartwatches to reference the model data.
+
+#### *User_smartwatches model:*
+* The user_smartwatches model has a many to one with the users model where each user can have multiple smartwatches saved, but the user_smartwatches model can only be accessed by one user. It is also associated with the smartwatches model in a many to many relationship. Foreign keys of "model_id" and "user_id" are defined inside of this model to establish the relationships between the two models.
+
 ### **R9 - Discuss the database relations to be implemented in your application**
 
+Inside of my database I have three tables: users, smartwatches and user_smartwatches. 
+
+The users table contains the username, password and email of the user as well as the admin status of the user. It has a primary key of user_id that is used in user_smartwatches.
+
+The smartwatches table represents the list of smartwatches in the system, it has the name, brand, year released, budget, battery life and main feature of each smartwatch in the system. It has a primary key that is used in user_smartwatches.
+
+user_smartwatches serves as a join table, it contains the foreign keys of the two other tables and lets multiple users be associated with multiple smartwatches. By using a join table the users are able to save the watches provided to them. 
+
 ### **R10 - Describe the way tasks are allocated and tracked in your project**
+
+For this project, I used Trello for allocating and tracking my projects. I broke down each task that I needed to do into manageable pieces. I based the the tasks using the ERD I created to make it easier to figure out what I needed to do first. I reported daily progress to the standups channel on the Coder Academy Discord channel which helped me be consistent with my work. I additionally made consistent commits to monitor my own progress and keeping myself accountable. As well as going back to my previous commits to see how I coded specific sections of code, helping me remember in what steps I did each section of code. 
 
 
 
