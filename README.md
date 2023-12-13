@@ -17,17 +17,17 @@ I've chose to use PostgreSQL for this project as it's reliable and able to manag
 Part of the selection process was comparing it to other database systems, such as MongoDB. Here are the drawbacks of each:
 
 ### Drawbacks of PostgreSQL: 
-    1. Performance can be slower than NoSQL databases when handling volumes of write-heavy transactions. 
-    2. Lack of flexibility due to using a schema structure, which requires defining schemas in advance. As apps evolve this can cause issues since schemas may need to be updated as apps advance. 
-    3. Limited built-in tools for certain tasks such as full-text search and handling geographic data. This can cause additional workload on processing as these tools are not natively available. 
-    4. Whilst PostgreSQL has a large community support, in a commercial setting support may be more limited compared to more enterprise focused databases.
+* Performance can be slower than NoSQL databases when handling volumes of write-heavy transactions. 
+* Lack of flexibility due to using a schema structure, which requires defining schemas in advance. As apps evolve this can cause issues since schemas may need to be updated as apps advance. 
+* Limited built-in tools for certain tasks such as full-text search and handling geographic data. This can cause additional workload on processing as these tools are not natively available. 
+* Whilst PostgreSQL has a large community support, in a commercial setting support may be more limited compared to more enterprise focused databases.
 
 
 ### Drawbacks of MongoDB: 
-    1. MongoDB can use more memory & storage due to it storing data in BSON format. 
-    2. Lack of rigidity can cause issues in data normalization. It additionally does not enforce foreign key constraints which can cause issues for data integrity.
-    3. MongoDB has a document size limit which forces a careful design of databases. 
-    4. There is potential for over-indexing which can lead to overheads in terms of storage and can impact write performance. 
+* MongoDB can use more memory & storage due to it storing data in BSON format. 
+* Lack of rigidity can cause issues in data normalization. It additionally does not enforce foreign key constraints which can cause issues for data integrity.
+* MongoDB has a document size limit which forces a careful design of databases. 
+* There is potential for over-indexing which can lead to overheads in terms of storage and can impact write performance. 
 
 The choice between MongoDB and PostgreSQL is highly situational. They are both strong choices for databases systems, however for different needs. If using complex queries and ensuring ACID compliance are important - PostgreSQL is the best choice. On the other hand, if fast write operations are needed as well as the handling of unstructured data then MongoDB may be preferable. As the latter will not be necessary for this project, PostgreSQL is a better choice. 
 
@@ -43,7 +43,39 @@ https://www.mongodb.com/compare/mongodb-postgresql
 
 ### **R4 - Identify and discuss the key functionalities and benefits of an ORM**
 
+An Object-Relational Mapping (ORM) is a programming technique that is used to map incompatible data from a programming language into data that a relational database can use. 
 
+**Some of it's key functionalities are:**
+
+* Data Abstraction:
+    * ORM abstract the database system, allowing developers to work with data as objects, reducing the need to write SQL queries. However, this can sometimes lead to inefficient queries if the ORM is not used carefully.
+
+* Database Synchronization:
+    * ORM synchronizes the database schema with the application model. Changes in the model can be automatically propagated to the database schema. In large projects however, this can lead to a need to have the database schema carefully managed to prevent mistakes or data loss.
+
+* CRUD Operations:
+    * Simplifies Create, Read, Update, and Delete (CRUD) operations. Developers interact with objects rather than SQL. Sometimes this can hide the complexity of the operations thus impacting the performance implications.
+
+* Query Capability:
+    * Provides a querying capability that lets developers write queries using the programming language's features rather than SQL. But sometimes this can be less effective than writing native SQL queries, especially for complex operations. 
+
+
+**Some of it's key benefits are:**
+
+* Increased Productivity:
+    * Automates boilerplate code for database operations, allowing developers to focus on business logic. However this can lead to a potential lack of understanding of the underlying database operations. 
+
+* Maintainability:
+    * Code is more maintainable and understandable, as it aligns with the application's domain model. However the nuance is that complex queries can become more convoluted.
+
+* Reduced SQL Injection Risk:
+    * By abstracting SQL queries, ORMs can reduce the risk of SQL injection attacks. However, this does not eliminate the need for careful security practices. Especially if raw SQL is still used for complex queries. 
+
+* Integration with Application Logic:
+    * Seamless integration with the programming language's own constructs. But, this can sometimes lead to a blurring of boundaries between the database layer and application logic.
+
+
+ORMs provide a convenient and efficient way to interact with databases, however their use requires an understanding of their limitations as well as the database system in use. 
 
 ### **R5 - Document all endpoints for your API**
 
