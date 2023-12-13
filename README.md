@@ -192,16 +192,26 @@ ORMs provide a convenient and efficient way to interact with databases, however 
 * Expected response: `200 OK`
 * Authentication: `email`, `password`
 
-
-
-
-
-
 ### **R6 - An ERD for your app**
 
 ![ERD](./docs/ERD.png)
 
 ### **R7 - Detail any third party services that your app will use**
+
+For the purposes of this app, the following will be used:
+
+1. *Flask:* A lightweight web framework for Python. It's designed to be simple and easy to use, allowing you to quickly build web applications by providing tools, libraries, and technologies. Flask offers simplicity, flexibility, and fine-grained control.
+SQLAlchemy: An SQL toolkit and Object-Relational Mapping (ORM) library for Python. It provides a full suite of well-known enterprise-level persistence patterns, designed for efficient and high-performing database access.
+
+2. *PostgreSQL:* An open-source, powerful, and advanced relational database system. It's known for its robustness, scalability, and support for advanced data types and complex queries.
+
+3. *Psycopg2:* A PostgreSQL adapter for Python. It's a popular choice for connecting Python applications to a PostgreSQL database, allowing you to execute PostgreSQL commands from Python.
+
+4. *Marshmallow:* A library for object serialization and deserialization in Python. It turns complex data types, like objects, into Python native data types that can then be easily rendered into JSON, XML, or other content types. It's commonly used for parsing and validating data for Flask applications.
+
+5. *Bcrypt:* A password hashing function. In Python, it's commonly used for securely storing user passwords. By hashing passwords, Bcrypt provides a way to store and manage secure passwords.
+
+6. *JWT Manager (JSON Web Token):* A method for securely transmitting information between parties as a JSON object. In Python, JWT is often used for authentication in web applications, where the server generates a token that certifies the user's identity and is then used for secured communication.
 
 ### **R8 - Describe your projects models in terms of the relationships they have with each other**
 
