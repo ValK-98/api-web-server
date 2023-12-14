@@ -1,12 +1,19 @@
 from marshmallow.exceptions import ValidationError
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, abort
 from app import db, bcrypt, jwt
 from models.user import User, UserSchema
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 
 
 auth_blueprint = Blueprint('auth', __name__)
 
+
+def admin_required():
+    jwt_user_id = get_jwt_identity()
+    stmt = db.select(User).filter_by(id=jwt_user_id)
+    user = db.session.scalar(stmt)
+    if not (user and user.is_admin):
+        abort(401)
 
 @auth_blueprint.route('/register', methods=['POST'])
 def register():
@@ -35,3 +42,4 @@ def login():
             return jsonify({"message": "Invalid credentials"}), 401
     except ValidationError as err:
         return jsonify(err.messages), 400
+
