@@ -22,7 +22,7 @@ def db_seed():
             is_admin=True,
         ),
         User(
-            name="Not Admin",
+            username="Not Admin",
             email="notadmin@notadmin.com",
             password=bcrypt.generate_password_hash("defnotanadmin").decode("utf8"),
         ),
@@ -30,3 +30,4 @@ def db_seed():
 
     db.session.add_all(users)
     db.session.commit()
+

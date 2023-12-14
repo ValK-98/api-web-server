@@ -34,8 +34,13 @@ def validation_error(err):
 
 
 from blueprints.auth_bp import *
-from blueprints.cli_bp import *
+from blueprints.cli_bp import cli_bp
 app.register_blueprint(cli_bp)
 app.register_blueprint(auth_blueprint)
+
+
+
+
+
 
 
