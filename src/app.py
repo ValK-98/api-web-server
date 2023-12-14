@@ -2,7 +2,7 @@ from flask import Flask
 from os import environ
 from config import db, ma, bcrypt, jwt
 from marshmallow.exceptions import ValidationError
-from flask_migrate import Migrate
+# from flask_migrate import Migrate
 
 
 
@@ -21,7 +21,7 @@ ma.init_app(app)
 jwt.init_app(app)
 bcrypt.init_app(app)
 
-migrate = Migrate(app, db)
+# migrate = Migrate(app, db)
 
 @app.errorhandler(401)
 def unauthorized(err):
@@ -34,8 +34,8 @@ def validation_error(err):
 
 
 from blueprints.auth_bp import *
-app.register_blueprint(auth_blueprint, url_prefix='/api')
+from blueprints.cli_bp import *
+app.register_blueprint(cli_bp)
+app.register_blueprint(auth_blueprint)
 
-
-print(app.url_map)
 
