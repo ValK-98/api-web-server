@@ -3,6 +3,7 @@ from app import db
 from models.user_smartwatch import UserSmartwatch, UserSmartwatchSchema
 from models.user import User
 from models.smartwatch import Smartwatch, SmartwatchSchema
+from marshmallow.exceptions import ValidationError
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from blueprints.auth_bp import admin_required
 from sqlalchemy import and_ 
@@ -14,6 +15,11 @@ user_smartwatches_bp = Blueprint('user_smartwatches', __name__)
 def add_smartwatch_to_user():
     user_id = get_jwt_identity()
 
+    try:
+        SmartwatchSchema().load(request.json)  
+    except ValidationError as err:
+        return jsonify(err.messages), 400
+    
     query = Smartwatch.query
     for attr in ['budget', 'battery_life', 'main_feature', 'name', 'brand', 'year_released']:
         if value := request.json.get(attr):
@@ -59,7 +65,7 @@ def get_user_smartwatches():
     user_id = get_jwt_identity()
     user_smartwatches = UserSmartwatch.query.filter_by(user_id=user_id).all()
     smartwatches = get_smartwatch_data(user_smartwatches)
-    return jsonify(SmartwatchSchema(many=True).dump(smartwatches)), 400
+    return jsonify(SmartwatchSchema(many=True).dump(smartwatches)), 200
 
 @user_smartwatches_bp.route('/user_smartwatches/users/all', methods=['GET'])
 @jwt_required()

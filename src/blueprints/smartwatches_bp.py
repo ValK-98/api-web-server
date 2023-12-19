@@ -32,8 +32,12 @@ def get_smartwatches():
         query = query.filter(Smartwatch.name.ilike(f'%{name}%'))
     if brand:
         query = query.filter(Smartwatch.brand.ilike(f'%{brand}%'))
-    if year_released:
-        query = query.filter(Smartwatch.year_released == int(year_released))
+
+    try:
+        if year_released:
+            query = query.filter(Smartwatch.year_released == int(year_released))
+    except ValueError:
+        return jsonify({"error": "Invalid year format"}), 400
 
     smartwatches = query.all()
     return jsonify(smartwatches_schema.dump(smartwatches)), 200
