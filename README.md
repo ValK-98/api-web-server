@@ -324,7 +324,21 @@ user_smartwatches serves as a join table, it contains the foreign keys of the tw
 
 ### **R10 - Describe the way tasks are allocated and tracked in your project**
 
-For this project, I used Trello for allocating and tracking my projects. I broke down each task that I needed to do into manageable pieces. I based the the tasks using the ERD I created to make it easier to figure out what I needed to do first. I reported daily progress to the standups channel on the Coder Academy Discord channel which helped me be consistent with my work. I additionally made consistent commits to monitor my own progress and keeping myself accountable. As well as going back to my previous commits to see how I coded specific sections of code, helping me remember in what steps I did each section of code. 
+For this project, I begun by planning with making the ERD. Then I broke down the tasks in terms of priority and what are logical steps for developing the app. I used Trello to organize the tasks, however due to unforeseen circumstances with storms in Queensland I was unable to adhere to the initial task allocation. However, despite this the key was to break each step of the process into manageable pieces. Throughout the entire process consistent commits were made to track progress and serve as backups in case of future bugs. In addition, I reported daily progress to the standups channel on the Coder Academy Discord Channel which helped a lot with being consistent during the project. The task allocation was based on priority as follows: 
 
+* I initially began with making the config and basic app, ensuring everything is installed correctly. 
 
+* Once the foundation was set, the users register/login endpoints were created. This was chosen to be done first as all later endpoints were based on this.
+
+* Then, the admin functions were added.
+
+* Once the user management functionality was done, it was necessary to allocate the next appropriate task to be done. I chose to do the the model and blueprint of the smartwatches database. This was chosen as the user_smartwatches model and blueprint would have needed to reference it. 
+
+* Once that was done I moved on to finishing the user_smartwatches model & blueprint. 
+
+* Finally, I had allocated time to ensure that proper error handling was implemented as well as descriptive comments to serve as a walkthrough of the app. 
+
+![Trello Board 1](./docs/trello1.png)
+![Trello Board 2](./docs/trello2.png)
+![Trello Board 3](./docs/trello3.png)
 
