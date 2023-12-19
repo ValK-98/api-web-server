@@ -92,8 +92,14 @@ def db_seed():
 
     
     user_smartwatches = [
-        UserSmartwatch(user_id=1, smartwatch_id=1),  
+        UserSmartwatch(user_id=1, smartwatch_id=1),
+        UserSmartwatch(user_id=1, smartwatch_id=2),  
+        UserSmartwatch(user_id=1, smartwatch_id=3),  
         UserSmartwatch(user_id=2, smartwatch_id=2),
+        UserSmartwatch(user_id=2, smartwatch_id=2),
+        UserSmartwatch(user_id=3, smartwatch_id=1),
+        UserSmartwatch(user_id=3, smartwatch_id=5),
+        UserSmartwatch(user_id=3, smartwatch_id=4),
         
     ]
     db.session.add_all(user_smartwatches)

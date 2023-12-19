@@ -12,7 +12,7 @@ class Smartwatch(db.Model):
     budget = db.Column(db.String, nullable=False)
     battery_life = db.Column(db.Integer, nullable=False)
     main_feature = db.Column(db.String, nullable=False)
-    users = db.relationship('UserSmartwatch', back_populates='smartwatch')
+    users = db.relationship('UserSmartwatch', back_populates='smartwatch', cascade="all, delete-orphan")
 
 
 class SmartwatchSchema(ma.Schema):
