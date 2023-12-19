@@ -17,30 +17,36 @@ user_smartwatches_bp = Blueprint('user_smartwatches', __name__)
 def add_smartwatch_to_user():
     """
     Endpoint to add a smartwatch to a user's collection.
-    Requires JWT authentication.
+    Requires JWT authentication. If no optional filter fields are provided, 
+    'smartwatch_id' becomes a mandatory field.
     """
     user_id = get_jwt_identity()
 
-    # Validate the request data against SmartwatchSchema
-    try:
-        SmartwatchSchema().load(request.json)  
-    except ValidationError as err:
-        return jsonify(err.messages), 400
-    
-    # Build a query to find a smartwatch based on the provided filters
-    query = Smartwatch.query
-    for attr in ['budget', 'battery_life', 'main_feature', 'name', 'brand', 'year_released']:
-        if value := request.json.get(attr):
-            # Apply filters to the query based on attribute type
+    data = request.json
+    smartwatch_id = data.get('smartwatch_id')
+    filter_fields = ['budget', 'battery_life', 'main_feature', 'name', 'brand', 'year_released']
+    filters = {field: data.get(field) for field in filter_fields if data.get(field) is not None}
+
+    # If no filters and no smartwatch_id are provided, return an error
+    if not filters and not smartwatch_id:
+        return jsonify({"error": "No filters provided. 'smartwatch_id' is required"}), 400
+
+    # If filters are provided, use them to query the smartwatch
+    if filters:
+        query = Smartwatch.query
+        for attr, value in filters.items():
             if attr in ['name', 'brand', 'main_feature']:
                 query = query.filter(getattr(Smartwatch, attr).ilike(f'%{value}%'))
             elif attr == 'year_released':
                 query = query.filter(getattr(Smartwatch, attr) == int(value))
             else:
                 query = query.filter(getattr(Smartwatch, attr) == value)
+        smartwatch = query.first()
+    else:
+        # If only smartwatch_id is provided, query by id
+        smartwatch = Smartwatch.query.get(smartwatch_id)
 
-    # Execute the query and check if the smartwatch exists
-    smartwatch = query.first()
+    # Check if the smartwatch exists
     if not smartwatch:
         return jsonify({"error": "Smartwatch not found"}), 404
 
@@ -54,6 +60,7 @@ def add_smartwatch_to_user():
     db.session.commit()
 
     return jsonify({"message": "Smartwatch added to user's collection"}), 201
+
 
 @jwt_required()
 def get_smartwatch_data(user_smartwatches):
