@@ -1,21 +1,23 @@
+# Importing necessary modules and models
 from flask import Blueprint
 from app import db, bcrypt
 from models.user import User
 from models.smartwatch import Smartwatch
 from models.user_smartwatch import UserSmartwatch
 
-
+# Creating a Blueprint for database-related command line interface commands
 cli_bp = Blueprint('db', __name__)
 
 @cli_bp.cli.command("create")
 def db_create():
-    db.drop_all()
-    db.create_all()
-    print("Created tables")
+    db.drop_all() # Drop all existing tables
+    db.create_all() # Create new tables based on the models
+    print("Created tables") # Confirmation message
 
 
 @cli_bp.cli.command("seed")
 def db_seed():
+    # Define initial user data
     users = [
         User(
             username = "admin",
@@ -41,9 +43,11 @@ def db_seed():
         ),
     ]
 
+    # Add the predefined users to the database session
     db.session.add_all(users)
     db.session.commit()
 
+    # Define initial smartwatch data
     smartwatches = [
     Smartwatch(
         name="Apple Watch Series 9",
@@ -87,10 +91,11 @@ def db_seed():
     ),
 ]
 
+    # Add the predefined smartwatches to the database session
     db.session.add_all(smartwatches)
     db.session.commit()
 
-    
+    # Define initial user-smartwatch associations
     user_smartwatches = [
         UserSmartwatch(user_id=1, smartwatch_id=1),
         UserSmartwatch(user_id=1, smartwatch_id=2),  
@@ -102,6 +107,8 @@ def db_seed():
         UserSmartwatch(user_id=3, smartwatch_id=4),
         
     ]
+
+    # Add the predefined user-smartwatch associations to the database session
     db.session.add_all(user_smartwatches)
     db.session.commit()
 
