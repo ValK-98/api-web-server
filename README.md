@@ -2,6 +2,27 @@
 ## Valentinas Kornijenka
 [Github Repo](https://github.com/ValK-98/api-web-server)
 
+### Installation Instructions
+
+*Open WSL command line and run the following:*
+* Start PostgreSQL server with - ``sudo service postgresql start``
+* ``psql``
+* ``create database watchdb``
+
+*Open second WSL command line and run the following:*
+* ``python3 -m venv .venv``
+* ``source .venv/bin/activate``
+* ``pip install -r requirements.txt``
+* Rename .env sample to flask .flaskenv, configure template to personal parameters.
+* ``flask db create``
+* ``flask db seed``
+* ``flask run``
+
+*Inside of HTTP testing application of your choice*
+* Enter one of the endpoints below. E.g.: ``http://127.0.0.1:5555/smartwatches``
+* Make sure to set the correct HTTP request method!
+
+
 ### **R1 - Identification of the problem you are trying to solve by building this particular app.**
 
 I am building an API app to serve as a smartwatch comparison tool. Currently it is difficult for users to get concise information on the plethora of available smartwatches on the market. For users to do research of smartwatches they would like to purchase they typically have to go through websites and Youtube videos which either have a lot of filler text or Youtube videos that sometimes can take a considerable amount to watch. This app would allow users to look up smartwatches and quickly see their features. 
