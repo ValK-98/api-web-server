@@ -42,4 +42,39 @@ def login():
             return jsonify({"message": "Invalid credentials"}), 401
     except ValidationError as err:
         return jsonify(err.messages), 400
+    
+    
+@auth_blueprint.route('/users', methods=['GET'])
+@jwt_required()
+def list_users():
+    admin_required()
+    users = User.query.all()
+    user_schema = UserSchema(many=True)
+    return jsonify(user_schema.dump(users)), 200
+
+
+@auth_blueprint.route('/users/<int:user_id>', methods=['GET'])
+@jwt_required()
+def get_user(user_id):
+    admin_required()
+    user = User.query.get(user_id)
+    if user:
+        user_schema = UserSchema()
+        return jsonify(user_schema.dump(user)), 200
+    else:
+        return jsonify({"message": "User not found"}), 404
+    
+
+@auth_blueprint.route('/users/<int:user_id>', methods=['DELETE'])
+@jwt_required()
+def delete_user(user_id):
+    admin_required()
+    user = User.query.get(user_id)
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+        return jsonify({"message": "User deleted successfully"}), 200
+    else:
+        return jsonify({"message": "User not found"}), 404
+
 

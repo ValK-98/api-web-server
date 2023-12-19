@@ -2,8 +2,6 @@ from flask import Flask
 from os import environ
 from config import db, ma, bcrypt, jwt
 from marshmallow.exceptions import ValidationError
-# from flask_migrate import Migrate
-
 
 
 
@@ -21,7 +19,6 @@ ma.init_app(app)
 jwt.init_app(app)
 bcrypt.init_app(app)
 
-# migrate = Migrate(app, db)
 
 @app.errorhandler(401)
 def unauthorized(err):
@@ -32,7 +29,7 @@ def validation_error(err):
     return {'error': err.messages}
 
 
-
+# Move these up when finished
 from blueprints.auth_bp import *
 from blueprints.cli_bp import cli_bp
 app.register_blueprint(cli_bp)
