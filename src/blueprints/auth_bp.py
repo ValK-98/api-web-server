@@ -1,4 +1,5 @@
 from marshmallow.exceptions import ValidationError
+from sqlalchemy.exc import IntegrityError
 from flask import Blueprint, request, jsonify, abort
 from app import db, bcrypt, jwt
 from models.user import User, UserSchema
@@ -24,9 +25,9 @@ def register():
         new_user = User(username=user_data['username'], email=user_data['email'], password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
-        return jsonify({"message": "User registered successfully"}), 201
-    except ValidationError as err:
-        return jsonify(err.messages), 400
+        return UserSchema(exclude=["password", "is_admin"]).dump(new_user), 201
+    except IntegrityError:
+        return {'error': 'User already exists'}, 409
 
 
 @auth_blueprint.route('/login', methods=['POST'])
@@ -39,11 +40,11 @@ def login():
             access_token = create_access_token(identity=user.id)
             return jsonify(access_token=access_token), 200
         else:
-            return jsonify({"message": "Invalid credentials"}), 401
-    except ValidationError as err:
-        return jsonify(err.messages), 400
+            return {'error': 'Invalid email address or password'}, 401
+    except KeyError:
+        return {'error': 'Email and password are required'}, 400
     
-    
+
 @auth_blueprint.route('/users', methods=['GET'])
 @jwt_required()
 def list_users():
