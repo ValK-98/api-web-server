@@ -32,8 +32,11 @@ def validation_error(err):
 # Move these up when finished
 from blueprints.auth_bp import *
 from blueprints.cli_bp import cli_bp
+from blueprints.smartwatches_bp import smartwatch_bp
 app.register_blueprint(cli_bp)
 app.register_blueprint(auth_blueprint)
+app.register_blueprint(smartwatch_bp)
+
 
 
 

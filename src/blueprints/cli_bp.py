@@ -1,6 +1,7 @@
 from flask import Blueprint
 from app import db, bcrypt
 from models.user import User
+from models.smartwatch import Smartwatch
 
 
 cli_bp = Blueprint('db', __name__)
@@ -29,5 +30,20 @@ def db_seed():
     ]
 
     db.session.add_all(users)
+    db.session.commit()
+
+    smartwatches = [
+        Smartwatch(
+            name="Apple Watch Series 9",
+            brand="Apple",
+            year_released=2023,
+            budget="Mid Range",
+            battery_life=8,
+            main_feature="Health Features"
+
+        ),
+    ]
+
+    db.session.add_all(smartwatches)
     db.session.commit()
 
