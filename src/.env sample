@@ -1,0 +1,4 @@
+FLASK_RUN_PORT=5555
+FLASK_DEBUG=true
+JWT_KEY= ''
+DB_URI= 'postgresql://<username>@localhost/<dbname>'
