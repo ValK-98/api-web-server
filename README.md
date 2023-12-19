@@ -89,9 +89,9 @@ ORMs provide a convenient and efficient way to interact with databases, however 
 * Expected response: `200 OK`
 * Authentication: Valid JWT token for user
 
-### /smartwatches/`<int:model_id>`
+### /smartwatches/`<int:smartwatch_id>`
 * Description: Gets information of specific model
-* Required data: 'model_id'
+* Required data: 'smartwatch_id'
 * HTTP Method: `GET`
 * Expected response: `200 OK`
 * Authentication: Valid JWT token for user
@@ -103,9 +103,9 @@ ORMs provide a convenient and efficient way to interact with databases, however 
 * Expected response: `200 OK`
 * Authentication: Valid JWT token for user
 
-### /user_smartwatches
+### /user_smartwatches/`<int:smartwatch_id>`
 * Description: Allows users to add watch to `user_smartwatches`
-* Required data: `model_id`
+* Required data: `smartwatch_id`
 * HTTP Method: `POST`
 * Expected response: `201 CREATED`
 * Authentication: Valid JWT token for user

@@ -37,6 +37,7 @@ def add_smartwatch_to_user():
 
     return jsonify({"message": "Smartwatch added to user's collection"}), 201
 
+@jwt_required()
 def get_smartwatch_data(user_smartwatches):
     smartwatches = []
     for user_smartwatch in user_smartwatches:
@@ -58,7 +59,7 @@ def get_user_smartwatches():
     user_id = get_jwt_identity()
     user_smartwatches = UserSmartwatch.query.filter_by(user_id=user_id).all()
     smartwatches = get_smartwatch_data(user_smartwatches)
-    return jsonify(smartwatches), 200
+    return jsonify(SmartwatchSchema(many=True).dump(smartwatches)), 400
 
 @user_smartwatches_bp.route('/user_smartwatches/users/all', methods=['GET'])
 @jwt_required()
