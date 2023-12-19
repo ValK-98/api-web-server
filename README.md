@@ -4,7 +4,7 @@
 
 ### **R1 - Identification of the problem you are trying to solve by building this particular app.**
 
-I am building an API app to serve as a smartwatch comparison tool. Currently it is difficult for users to get concise information on the plethora of available smartwatches on the market. For users to do research of smartwatches they would like to purchase they typically have to go through websites and Youtube videos which either have a lot of filler text or Youtube videos that sometimes can take a considerable amount to watch. This app would allow users to look up smartwatches and quickly see their pros & cons. 
+I am building an API app to serve as a smartwatch comparison tool. Currently it is difficult for users to get concise information on the plethora of available smartwatches on the market. For users to do research of smartwatches they would like to purchase they typically have to go through websites and Youtube videos which either have a lot of filler text or Youtube videos that sometimes can take a considerable amount to watch. This app would allow users to look up smartwatches and quickly see their features. 
 
 ### **R2 - Why is it a problem that needs solving?**
 
@@ -89,12 +89,16 @@ ORMs provide a convenient and efficient way to interact with databases, however 
 * Expected response: `200 OK`
 * Authentication: Valid JWT token for user
 
+![get specific smartwatch example](./docs/getsmartwatches.png)
+
 ### /smartwatches/`<int:smartwatch_id>`
 * Description: Gets information of specific model
-* Required data: 'smartwatch_id'
+* Required data: `smartwatch_id` referenced in the request header
 * HTTP Method: `GET`
 * Expected response: `200 OK`
 * Authentication: Valid JWT token for user
+
+![get specific smartwatch example](./docs/get_specific_watch.png)
 
 ### /user_smartwatches
 * Description: Allows users to get saved smartwatch information associated with their ID
@@ -103,19 +107,25 @@ ORMs provide a convenient and efficient way to interact with databases, however 
 * Expected response: `200 OK`
 * Authentication: Valid JWT token for user
 
+![get user_smartwatch example](./docs/get_user_smartwatches.png)
+
 ### /user_smartwatches/`<int:smartwatch_id>`
 * Description: Allows users to add watch to `user_smartwatches`
-* Required data: `smartwatch_id`
+* Required data: `smartwatch_id` referenced in the request header
 * HTTP Method: `POST`
 * Expected response: `201 CREATED`
 * Authentication: Valid JWT token for user
 
+![add user_smartwatch example](./docs/add_user_smartwatch.png)
+
 ### /user_smartwatches/`<int:smartwatch_id>`
 * Description: Allows users to delete `user_smartwatches`
-* Required data: `smartwatch_id`
+* Required data: `smartwatch_id` referenced in the request header
 * HTTP Method: `DELETE`
 * Expected response: `200 OK`
 * Authentication: Valid JWT token for user
+
+![remove user_smartwatch example](./docs/delete_user_smartwatch.png)
 
 ## Admin Endpoints: ## 
 
@@ -124,35 +134,46 @@ ORMs provide a convenient and efficient way to interact with databases, however 
 * Required data: Smartwatch model details: `budget`, `battery life`, `main feature`, `name`, `brand`, `year released`
 * HTTP Method: `POST`
 * Expected response: `201 CREATED`
-* Authentication: Admin-level JWT token
+* Authentication: JWT token, admin_required()
+
+![add smartwatch example](./docs/create_smartwatch.png)
+
 
 ### /smartwatches/`<int:model_id>`
 * Description: Update information of existing model
-* Required data: `model_id` as parameter and updated details.
+* Required data: `model_id` referenced in the request header. smartwatch model details: `budget`, `battery life`, `main feature`, `name`, `brand`, `year released`
 * HTTP Method: `PUT`
 * Expected response: `200 OK`
-* Authentication: Admin-level JWT token
+* Authentication: JWT token, admin_required()
+
+![update smartwatch example](./docs/update_smartwatch.png)
 
 ### /smartwatches/`<int:model_id>`
 * Description: Permits admins to remove a smartwatch model from database
-* Required data: `model_id`
+* Required data: `model_id` referenced in the request header
 * HTTP Method: `DELETE`
 * Expected response: `200 OK`
-* Authentication: Admin-level JWT token
+* Authentication: JWT token, admin_required()
+
+![remove smartwatch example](./docs/delete_user_smartwatch.png)
 
 ### /user_smartwatches/users/all
 * Description: Allows admin to get all users `user_smartwatches` information
 * Required data: none
 * HTTP Method: `GET`
 * Expected response: `200 OK`
-* Authentication: Admin-level JWT token
+* Authentication: JWT token, admin_required()
+
+![get all user_smartwatches lookup example](./docs/get_all_users_smartwatches.png)
 
 ### /user_smartwatches/users/`<int:user_id>`
 * Description: Allows admin to get specific user `user_smartwatches` information
-* Required data: `user_id`
+* Required data: `user_id` referenced in the request header
 * HTTP Method: `GET`
 * Expected response: `200 OK`
-* Authentication: Admin-level JWT token
+* Authentication: JWT token, admin_required()
+
+![get user_smartwatches lookup example](./docs/get_specific_user_smartwatches.png)
 
 
 ### /users
@@ -160,21 +181,27 @@ ORMs provide a convenient and efficient way to interact with databases, however 
 * Required data: None
 * HTTP Method: `GET`
 * Expected response: `200 OK`
-* Authentication: Admin-level JWT token
+* Authentication: JWT token, admin_required()
+
+![all user lookup example](./docs/list_of_users.png)
 
 ### /users/`<int:user_id>`
 * Description: Allows admins to look up a user
-* Required data: `user_id`
+* Required data: `user_id` referenced in the request header
 * HTTP Method: `GET`
 * Expected response: `200 OK`
-* Authentication: Admin-level JWT token
+* Authentication: JWT token, admin_required()
+
+![specific user lookup example](./docs/specific_user.png)
 
 ### /users/`<int:user_id>`
 * Description: Allows admins to delete an existing user
-* Required data: None
+* Required data: `user_id` referenced in the request header
 * HTTP Method: `DELETE`
 * Expected response: `200 OK`
-* Authentication: Admin-level JWT token
+* Authentication: JWT token, admin_required()
+
+![user delete example](./docs/user_delete.png)
 
 ## Authentication Endpoints: ## 
 
@@ -185,12 +212,16 @@ ORMs provide a convenient and efficient way to interact with databases, however 
 * Expected response: `201 CREATED`
 * Authentication: None
 
+![register user example](./docs/register.png)
+
 ### /login
 * Description: Authenticates user credentials and provides a token for accessing user-specific endpoints.
 * Required data: User credentials: `email`, `password`
 * HTTP Method: `POST`
 * Expected response: `200 OK`
 * Authentication: `email`, `password`
+
+![login user example](./docs/login_user.png)
 
 ### **R6 - An ERD for your app**
 
@@ -218,11 +249,46 @@ SQLAlchemy: An SQL toolkit and Object-Relational Mapping (ORM) library for Pytho
 #### *Users model*: 
 * The Users model contains the information for the users registering & logging in. It has a one to many relationship with user_smartwatches. This allows the user to store multiple smartwatches that the app outputs. HThe user_id will be used as a foreign key inside of user_smartwatches.
 
+```python
+class User(db.Model):
+    __tablename__ = "users"
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String, nullable=False)
+    email = db.Column(db.String, nullable=False, unique=True)
+    password = db.Column(db.String, nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)
+    smartwatches = db.relationship('UserSmartwatch', back_populates='user', cascade="all, delete-orphan")
+```
+
 #### *Smartwatches model:*
 * The smartwatches model contains the data for the smartwatches inside the database. It has a many to many relationship with user_smartwatches. This lets multiple users to be associated with the smartwatches, and the smartwatches can be associated with multiple users. The foreign key "model_id" is used in user_smartwatches to reference the model data.
 
+```python
+class Smartwatch(db.Model):
+    __tablename__ = 'smartwatches'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+    brand = db.Column(db.String, nullable=False)
+    year_released = db.Column(db.Integer, nullable=False)
+    budget = db.Column(db.String, nullable=False)
+    battery_life = db.Column(db.Integer, nullable=False)
+    main_feature = db.Column(db.String, nullable=False)
+    users = db.relationship('UserSmartwatch', back_populates='smartwatch', cascade="all, delete-orphan")
+```
+
+
 #### *User_smartwatches model:*
 * The user_smartwatches model has a many to one with the users model where each user can have multiple smartwatches saved, but the user_smartwatches model can only be accessed by one user. It is also associated with the smartwatches model in a many to many relationship. Foreign keys of "model_id" and "user_id" are defined inside of this model to establish the relationships between the two models.
+
+```python
+class UserSmartwatch(db.Model):
+    __tablename__ = 'user_smartwatches'
+    id = db.Column(db.Integer, primary_key=True)
+    smartwatch_id = db.Column(db.Integer, db.ForeignKey('smartwatches.id', ondelete='CASCADE'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
+    smartwatch = db.relationship('Smartwatch', back_populates='users')
+    user = db.relationship('User', back_populates='smartwatches')
+```
 
 ### **R9 - Discuss the database relations to be implemented in your application**
 
@@ -232,7 +298,7 @@ The users table contains the username, password and email of the user as well as
 
 The smartwatches table represents the list of smartwatches in the system, it has the name, brand, year released, budget, battery life and main feature of each smartwatch in the system. It has a primary key that is used in user_smartwatches.
 
-user_smartwatches serves as a join table, it contains the foreign keys of the two other tables and lets multiple users be associated with multiple smartwatches. By using a join table the users are able to save the watches provided to them. 
+user_smartwatches serves as a join table, it contains the foreign keys of the two other tables and lets multiple users be associated with multiple smartwatches. By using a join table the users are able to save the watches provided to them. They are additionally able to delete the watches they've saved without impacting the existing smartwatches inside of the database. 
 
 ### **R10 - Describe the way tasks are allocated and tracked in your project**
 
