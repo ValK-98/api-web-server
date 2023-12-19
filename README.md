@@ -84,7 +84,7 @@ ORMs provide a convenient and efficient way to interact with databases, however 
 ### /smartwatches
 * Description: Retrieves a list of smartwatch models, optionally based on their specified criteria.
 * Required data: None
-* Optional data: Query parameters for filtering: `budget`, `battery life`, `main feature`, `name`, `brand`, `year released`
+* Optional data: Query parameters for filtering: `budget`, `battery_life`, `main_feature`, `name`, `brand`, `year_released`
 * HTTP Method: `GET`
 * Expected response: `200 OK`
 * Authentication: Valid JWT token for user
@@ -111,7 +111,8 @@ ORMs provide a convenient and efficient way to interact with databases, however 
 
 ### /user_smartwatches/`<int:smartwatch_id>`
 * Description: Allows users to add watch to `user_smartwatches`
-* Required data: `smartwatch_id` referenced in the request header
+* Required data: `smartwatch_id` included as JSON in body
+* Optional data: Query parameters for filtering: `budget`, `battery_life`, `main_feature`, `name`, `brand`, `year_released` included as JSON in body
 * HTTP Method: `POST`
 * Expected response: `201 CREATED`
 * Authentication: Valid JWT token for user
@@ -131,7 +132,7 @@ ORMs provide a convenient and efficient way to interact with databases, however 
 
 ### /smartwatches
 * Description: Add a new smartwatch model
-* Required data: Smartwatch model details: `budget`, `battery life`, `main feature`, `name`, `brand`, `year released`
+* Required data: Smartwatch model details: `budget`, `battery_life`, `main_feature`, `name`, `brand`, `year_released`
 * HTTP Method: `POST`
 * Expected response: `201 CREATED`
 * Authentication: JWT token, admin_required()
@@ -141,7 +142,7 @@ ORMs provide a convenient and efficient way to interact with databases, however 
 
 ### /smartwatches/`<int:model_id>`
 * Description: Update information of existing model
-* Required data: `model_id` referenced in the request header. smartwatch model details: `budget`, `battery life`, `main feature`, `name`, `brand`, `year released`
+* Required data: `model_id` referenced in the request header. smartwatch model details: `budget`, `battery_life`, `main_feature`, `name`, `brand`, `year_released`
 * HTTP Method: `PUT`
 * Expected response: `200 OK`
 * Authentication: JWT token, admin_required()
@@ -247,7 +248,7 @@ SQLAlchemy: An SQL toolkit and Object-Relational Mapping (ORM) library for Pytho
 ### **R8 - Describe your projects models in terms of the relationships they have with each other**
 
 #### *Users model*: 
-* The Users model contains the information for the users registering & logging in. It has a one to many relationship with user_smartwatches. This allows the user to store multiple smartwatches that the app outputs. HThe user_id will be used as a foreign key inside of user_smartwatches.
+* The Users model contains the schema for the users registering & logging in. It has a one to many relationship with user_smartwatches. This allows the user to store multiple smartwatches that the app outputs. The users model will be referenced as a foreign key inside of user_smartwatches.
 
 ```python
 class User(db.Model):
@@ -261,7 +262,7 @@ class User(db.Model):
 ```
 
 #### *Smartwatches model:*
-* The smartwatches model contains the data for the smartwatches inside the database. It has a many to many relationship with user_smartwatches. This lets multiple users to be associated with the smartwatches, and the smartwatches can be associated with multiple users. The foreign key "model_id" is used in user_smartwatches to reference the model data.
+* The smartwatches model contains the schema for the smartwatches inside the database. It has a many to many relationship with user_smartwatches. This lets multiple users to be associated with the smartwatches, and the smartwatches can be associated with multiple users. The foreign key of the smartwatches model is used in user_smartwatches to reference the model data.
 
 ```python
 class Smartwatch(db.Model):
@@ -278,7 +279,7 @@ class Smartwatch(db.Model):
 
 
 #### *User_smartwatches model:*
-* The user_smartwatches model has a many to one with the users model where each user can have multiple smartwatches saved, but the user_smartwatches model can only be accessed by one user. It is also associated with the smartwatches model in a many to many relationship. Foreign keys of "model_id" and "user_id" are defined inside of this model to establish the relationships between the two models.
+* The user_smartwatches model has a many to one with the users model where each user can have multiple smartwatches saved, but the user_smartwatches model can only be accessed by one user. It is also associated with the smartwatches model in a many to many relationship. Foreign keys of smartwatches and users are defined inside of this model to establish the relationships between the two models.
 
 ```python
 class UserSmartwatch(db.Model):
