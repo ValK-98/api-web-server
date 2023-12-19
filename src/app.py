@@ -2,7 +2,10 @@ from flask import Flask
 from os import environ
 from config import db, ma, bcrypt, jwt
 from marshmallow.exceptions import ValidationError
-
+from blueprints.auth_bp import *
+from blueprints.cli_bp import cli_bp
+from blueprints.smartwatches_bp import smartwatch_bp
+from blueprints.user_smartwatches_bp import user_smartwatches_bp
 
 
 app = Flask(__name__)
@@ -29,13 +32,12 @@ def validation_error(err):
     return {'error': err.messages}
 
 
-# Move these up when finished
-from blueprints.auth_bp import *
-from blueprints.cli_bp import cli_bp
-from blueprints.smartwatches_bp import smartwatch_bp
+
 app.register_blueprint(cli_bp)
 app.register_blueprint(auth_blueprint)
 app.register_blueprint(smartwatch_bp)
+app.register_blueprint(user_smartwatches_bp)
+
 
 
 
